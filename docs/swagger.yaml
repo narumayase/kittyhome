@@ -1,0 +1,169 @@
+basePath: /
+definitions:
+  domain.Pet:
+    properties:
+      color:
+        description: Color of the pet
+        type: string
+      id:
+        description: Id of the pet
+        type: integer
+      name:
+        description: Name of the pet
+        type: string
+      pedigree:
+        description: Pedigree of the pet
+        type: string
+      type:
+        description: Type of the pet (cat, dog)
+        type: string
+    type: object
+  domain.Toy:
+    description: toy data
+    properties:
+      brand:
+        description: Brand of the toy
+        type: string
+      id:
+        description: Id of the toy
+        type: integer
+      owner:
+        description: Owner pet owner of the toy
+        type: string
+    type: object
+  errors.CustomError:
+    description: a custom error to show a message error
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: sarasa@gmail.com
+    name: Naru Mayase
+    url: http://www.sarasa
+  description: This is a sample boilerplate REST API.
+  termsOfService: http://sarasa
+  title: Kitty Home Boilerplate API
+  version: 0.0.1
+paths:
+  /pet:
+    post:
+      consumes:
+      - application/json
+      description: add a pet with autoincrement id
+      parameters:
+      - description: Pet data
+        in: body
+        name: pet
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Pet'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: Add a pet
+      tags:
+      - pets
+  /pet/{name}:
+    get:
+      description: get a pet by name
+      parameters:
+      - description: Nymeria
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Pet'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: Get a pet by name
+      tags:
+      - pets
+  /toy:
+    get:
+      description: get all toys
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Toy'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: Get all toys
+      tags:
+      - toys
+    post:
+      consumes:
+      - application/json
+      description: add a toy with autoincrement id
+      parameters:
+      - description: Toy data
+        in: body
+        name: toy
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Toy'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.CustomError'
+      summary: Add a toy
+      tags:
+      - toys
+securityDefinitions:
+  BasicAuthfunc:
+    type: basic
+swagger: "2.0"

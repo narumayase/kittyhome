@@ -1,0 +1,252 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample boilerplate REST API.",
+        "title": "Kitty Home Boilerplate API",
+        "termsOfService": "http://sarasa",
+        "contact": {
+            "name": "Naru Mayase",
+            "url": "http://www.sarasa",
+            "email": "sarasa@gmail.com"
+        },
+        "version": "0.0.1"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/pet": {
+            "post": {
+                "description": "add a pet with autoincrement id",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "pets"
+                ],
+                "summary": "Add a pet",
+                "parameters": [
+                    {
+                        "description": "Pet data",
+                        "name": "pet",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Pet"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            }
+        },
+        "/pet/{name}": {
+            "get": {
+                "description": "get a pet by name",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "pets"
+                ],
+                "summary": "Get a pet by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nymeria",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Pet"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            }
+        },
+        "/toy": {
+            "get": {
+                "description": "get all toys",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "toys"
+                ],
+                "summary": "Get all toys",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Toy"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "add a toy with autoincrement id",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "toys"
+                ],
+                "summary": "Add a toy",
+                "parameters": [
+                    {
+                        "description": "Toy data",
+                        "name": "toy",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Toy"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/errors.CustomError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.Pet": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "description": "Color of the pet",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of the pet",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Name of the pet",
+                    "type": "string"
+                },
+                "pedigree": {
+                    "description": "Pedigree of the pet",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of the pet (cat, dog)",
+                    "type": "string"
+                }
+            }
+        },
+        "domain.Toy": {
+            "description": "toy data",
+            "type": "object",
+            "properties": {
+                "brand": {
+                    "description": "Brand of the toy",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of the toy",
+                    "type": "integer"
+                },
+                "owner": {
+                    "description": "Owner pet owner of the toy",
+                    "type": "string"
+                }
+            }
+        },
+        "errors.CustomError": {
+            "description": "a custom error to show a message error",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BasicAuthfunc": {
+            "type": "basic"
+        }
+    }
+}
